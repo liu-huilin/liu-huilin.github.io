@@ -23,20 +23,20 @@
   <meta name="description" content="1、前言由于笔者并未系统地学习过Python，对Python某些底层的实现细节一概不清楚，以至于在实际使用的时候会写出一些奇奇怪怪的Bug（没错，别人写代码，我写Bug），比如对象的某些属性莫名奇妙地改变。究其原因，是对Python中的变量机制存在一些误解，毕竟以前一直是用C语言居多。无奈，只能深入学习这一部分的知识，并总结成此文。 阅读本文，你可以：  了解Python中变量的“储存”机制。 了">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从内存的角度看Python中的变量">
-<meta property="og:url" content="https://liu-huilin.github.io/2022/01/10/python-variable/index.html">
+<meta property="og:url" content="https://liu-huilin.github.io/2022/01/10/%E4%BB%8E%E5%86%85%E5%AD%98%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BPython%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/index.html">
 <meta property="og:site_name" content="菜鸡刘的个人小站">
 <meta property="og:description" content="1、前言由于笔者并未系统地学习过Python，对Python某些底层的实现细节一概不清楚，以至于在实际使用的时候会写出一些奇奇怪怪的Bug（没错，别人写代码，我写Bug），比如对象的某些属性莫名奇妙地改变。究其原因，是对Python中的变量机制存在一些误解，毕竟以前一直是用C语言居多。无奈，只能深入学习这一部分的知识，并总结成此文。 阅读本文，你可以：  了解Python中变量的“储存”机制。 了">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://liu-huilin.github.io/2022/01/10/images/2022_python_1.png">
 <meta property="og:image" content="https://liu-huilin.github.io/2022/01/10/images/2022_python_2.gif">
 <meta property="article:published_time" content="2022-01-10T13:39:48.000Z">
-<meta property="article:modified_time" content="2022-01-10T14:12:47.094Z">
+<meta property="article:modified_time" content="2022-01-10T14:43:11.783Z">
 <meta property="article:author" content="菜鸡刘">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://liu-huilin.github.io/2022/01/10/images/2022_python_1.png">
 
-<link rel="canonical" href="https://liu-huilin.github.io/2022/01/10/python-variable/">
+<link rel="canonical" href="https://liu-huilin.github.io/2022/01/10/%E4%BB%8E%E5%86%85%E5%AD%98%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BPython%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/">
 
 
 <script id="page-configurations">
@@ -172,7 +172,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://liu-huilin.github.io/2022/01/10/python-variable/">
+    <link itemprop="mainEntityOfPage" href="https://liu-huilin.github.io/2022/01/10/%E4%BB%8E%E5%86%85%E5%AD%98%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BPython%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -196,7 +196,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-01-10 21:39:48 / 修改时间：22:12:47" itemprop="dateCreated datePublished" datetime="2022-01-10T21:39:48+08:00">2022-01-10</time>
+              <time title="创建时间：2022-01-10 21:39:48 / 修改时间：22:43:11" itemprop="dateCreated datePublished" datetime="2022-01-10T21:39:48+08:00">2022-01-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,6 +238,8 @@
 <li>了解Python中的函数传参形式。</li>
 </ul>
 <p>当然，你需要一点基础的编程和面向对象的知识才能看懂本文。</p>
+<span id="more"></span>
+
 <h3 id="2、引用式变量"><a href="#2、引用式变量" class="headerlink" title="2、引用式变量"></a>2、引用式变量</h3><p>相信学过Python的小伙伴都听过这样一句话：<strong>Python中一切皆是对象</strong>。这意味着，哪怕是Python中的基本数据类型，其本质上也是对象，例如对于一个int类型的变量a，你可以调用int类对象的方法来求a的绝对值：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = -<span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.__abs__()</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
 
@@ -306,7 +308,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://liu-huilin.github.io/2022/01/10/python-variable/" title="从内存的角度看Python中的变量">https://liu-huilin.github.io/2022/01/10/python-variable/</a>
+    <a href="https://liu-huilin.github.io/2022/01/10/%E4%BB%8E%E5%86%85%E5%AD%98%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BPython%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/" title="从内存的角度看Python中的变量">https://liu-huilin.github.io/2022/01/10/从内存的角度看Python中的变量/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！

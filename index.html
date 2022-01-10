@@ -166,7 +166,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://liu-huilin.github.io/2022/01/10/python-variable/">
+    <link itemprop="mainEntityOfPage" href="https://liu-huilin.github.io/2022/01/10/%E4%BB%8E%E5%86%85%E5%AD%98%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BPython%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -180,7 +180,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/01/10/python-variable/" class="post-title-link" itemprop="url">从内存的角度看Python中的变量</a>
+            <a href="/2022/01/10/%E4%BB%8E%E5%86%85%E5%AD%98%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BPython%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/" class="post-title-link" itemprop="url">从内存的角度看Python中的变量</a>
         </h2>
 
         <div class="post-meta">
@@ -191,7 +191,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-01-10 21:39:48 / 修改时间：22:12:47" itemprop="dateCreated datePublished" datetime="2022-01-10T21:39:48+08:00">2022-01-10</time>
+              <time title="创建时间：2022-01-10 21:39:48 / 修改时间：22:43:11" itemprop="dateCreated datePublished" datetime="2022-01-10T21:39:48+08:00">2022-01-10</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -226,60 +226,14 @@
 <li>了解Python中的函数传参形式。</li>
 </ul>
 <p>当然，你需要一点基础的编程和面向对象的知识才能看懂本文。</p>
-<h3 id="2、引用式变量"><a href="#2、引用式变量" class="headerlink" title="2、引用式变量"></a>2、引用式变量</h3><p>相信学过Python的小伙伴都听过这样一句话：<strong>Python中一切皆是对象</strong>。这意味着，哪怕是Python中的基本数据类型，其本质上也是对象，例如对于一个int类型的变量a，你可以调用int类对象的方法来求a的绝对值：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = -<span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.__abs__()</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<p>在这个例子中，可以说：<em>a是int类的一个实例对象</em>，其值是-1。当然，这句话其实说的不对，因为a并不是一个对象，而是对象的引用。这听起来很奇怪，但事实就是如此。<strong>Python中的变量都是引用式变量</strong>，他并不像C/C++中的变量，储存着具体的数据类型或对象，他像是C++中的引用。通俗的讲，Python中的变量相当于对象的别名，如果你有C语言的基础，可以把它理解为C语言中的指针，通过它你可以在内存中找到对象。话不多说，先看图：</p>
-<p><img src="./../images/2022_python_1.png" alt="图片来源：《流畅的Python》8.1"></p>
-<p>左边的图表示的就是C语言中的变量，变量相当于一个“盒子”，“盒子”里装着值，右边表示的就是Python中的引用式变量，a和b都是列表对象[1, 2, 3]的别名，像是贴在[1, 2, 3]上的”标签“，顺着这些”标签“，解释器可以在内存中找到他们对应的对象。你也许会问，这有啥区别，不都是变量吗。还是先看代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">b = a</span><br><span class="line">a[<span class="number">2</span>] = <span class="number">9</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line"></span><br><span class="line">----运行结果----</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">9</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">9</span>]</span><br></pre></td></tr></table></figure>
-
-<p>意想不到的事情发生了，明明代码只改变了a的值，为什么b也跟着变了呢？这是因为，a、b都是列表的引用，并不是实际的列表，上述代码通过a这个”标签“改变了内存中列表[1, 2 ,3]的值，于是乎，你顺着b”标签“找到的列表，当然是改变了的。再看代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = [1, 2, 3]</span><br><span class="line">b = a</span><br><span class="line">a = [1, 2, 9]</span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br><span class="line"></span><br><span class="line">----运行结果----</span><br><span class="line">[1, 2, 9]</span><br><span class="line">[1, 2, 3]</span><br></pre></td></tr></table></figure>
-
-<p>在这个例程中，我们把[1, 2, 9]赋值给了a，然后再输出a和b，此时a已经发生变化，而b没有改变，a从列表[1, 2, 3]的引用变成了列表[1, 2, 9]的引用，列表[1, 2, 3]在内存中并未发生任何改变，这就是b输出的值不发生变化的原因。到这里，你应该可以理解上面说的：<u>a是int类的一个实例对象，其值是-1</u>为什么是错的了。这样的赋值语句在Python中的应该这样理解：创建一个int类对象-1，让a作为-1的引用。当然，右边的值是常量或是可变对象，解释器都会做出不同的反应，这将在下文进一步讲解。总之，啰啰嗦嗦说了这么多，就是希望大家都能搞明白这个问题，核心就是一句话：<strong>Python中的变量都是引用式变量，变量存储的不是值，而是引用。</strong></p>
-<h3 id="3、赋值、浅拷贝与深拷贝"><a href="#3、赋值、浅拷贝与深拷贝" class="headerlink" title="3、赋值、浅拷贝与深拷贝"></a>3、赋值、浅拷贝与深拷贝</h3><p>看完上一节，肯定有人会问，如果Python中的赋值都是引用，那我想创建一个变量的副本做备份怎么办？这在C语言中简单的一句b=a就可以实现的需求在Python中如何实现？Python中提供了三种复制的方式，即：</p>
-<ul>
-<li><strong>赋值</strong>：创建对象的引用。</li>
-<li><strong>浅拷贝</strong>：拷贝对象，但不拷贝对象内部的子对象。</li>
-<li><strong>深拷贝</strong>：拷贝对象，并且拷贝对象内部的子对象。</li>
-</ul>
-<p>一如既往地先看代码，毕竟代码最能说明问题：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> copy</span><br><span class="line">a = [<span class="number">1</span>, <span class="number">2</span>, [<span class="number">3</span>, <span class="number">3</span> , <span class="number">3</span>], [<span class="number">4</span>, <span class="number">4</span>]]</span><br><span class="line">b = a <span class="comment"># 赋值</span></span><br><span class="line">c = a.copy() <span class="comment"># 浅拷贝，调用对象的copy()方法</span></span><br><span class="line">d = copy.deepcopy(a) <span class="comment"># 深拷贝，需要引入copy模块，使用deepcopy()方法</span></span><br><span class="line">a[<span class="number">1</span>] = -<span class="number">2</span>  <span class="comment"># 改变1</span></span><br><span class="line">a[<span class="number">2</span>] = [-<span class="number">3</span>, -<span class="number">3</span>, -<span class="number">3</span>]  <span class="comment"># 改变2</span></span><br><span class="line">a[<span class="number">3</span>][<span class="number">0</span>] = -<span class="number">4</span>  <span class="comment"># 改变3</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line"><span class="built_in">print</span>(c)</span><br><span class="line"><span class="built_in">print</span>(d)</span><br><span class="line"></span><br><span class="line">----运行结果----</span><br><span class="line">[<span class="number">1</span>, -<span class="number">2</span>, [-<span class="number">3</span>, -<span class="number">3</span>, -<span class="number">3</span>], [-<span class="number">4</span>, <span class="number">4</span>]]</span><br><span class="line">[<span class="number">1</span>, -<span class="number">2</span>, [-<span class="number">3</span>, -<span class="number">3</span>, -<span class="number">3</span>], [-<span class="number">4</span>, <span class="number">4</span>]]</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, [<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>], [-<span class="number">4</span>, <span class="number">4</span>]]</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, [<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">4</span>]]</span><br></pre></td></tr></table></figure>
-
-<p>为了更方便阐述，这里我先给出这个例程中对象在内存中的变化情况，当然我更建议你自己去<a target="_blank" rel="noopener" href="https://pythontutor.com/">这个网站</a>逐步可视化地运行上面的代码，甚至是本文中的所有代码，这能加深你的理解。</p>
-<p><img src="./../images/2022_python_2.gif"></p>
-<p>在这段代码中，首先创建了一个列表对象，这个列表的第3、4个元素也是列表对象，a是这个列表的引用，把a赋值给b，此时b也是同一个对象的引用，在内存中，它们指向同一个对象，因此可以看到无论怎么通过a改变这个对象，a和b都是相同的。c则是对a的浅拷贝，解释器新开辟了一块内存，存储了原列表的一个副本，但是由于是浅拷贝，对象内部的子对象没有被拷贝。因此，这个副本列表的后面两个元素依旧和原列表一样，是列表[3, 3 , 3]和[4, 4]的引用，在内存中指向同样的对象。代码中的改变2让原列表的第三个元素变成了另一个列表[-3, -3 , -3]的引用，但是这个副本列表的第三个元素还是[3, 3 , 3]的引用。改变3则修给了原列表第四个元素指向的列表中的一个元素，因此打印c你会发现它指向的列表对应位置的元素也改变了。而对于d，d是a的深拷贝，解释器新开辟了一块内存，完全复制了原列表对象（包括子列表对象）放在这块内存中。因此，d指向的对象和a指向的对象没有任何关系，无论怎么改变a指向的那个列表，都不会影响d指向的列表。</p>
-<p>看到这里，你应该知道如何实现本节开头的需求了。</p>
-<h3 id="4、is的用法和id-函数"><a href="#4、is的用法和id-函数" class="headerlink" title="4、is的用法和id()函数"></a>4、is的用法和id()函数</h3><p>在Python中，每个对象都有各自的编号、类型和值，一个对象被创建以后，它的编号就不会改变，可以理解为对象在内存中的地址。id()函数可以获取对象的编号，在CPython解释器中，这个编号就是对象在内存中的地址。is是一个双目运算符，运算结果是布尔变量，用来比较两个对象的编号是否相同，准确的说，可以用于比较两个变量是否是同一个对象的引用。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">b = a  <span class="comment"># 赋值</span></span><br><span class="line">c = a.copy()  <span class="comment"># 浅拷贝</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(b))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(c))</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> c)</span><br><span class="line"></span><br><span class="line">----运行结果----</span><br><span class="line"><span class="number">2667871075272</span></span><br><span class="line"><span class="number">2667871075272</span></span><br><span class="line"><span class="number">2667871075208</span></span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-<p>显然，a、b是同一个对象的引用，而c是浅拷贝的副本，因此a和c引用的不是同一个对象，即使这两个对象的值相等。不知你是否还记得，第1节中还提到在赋值语句中，右边是可变对象与不可变对象，解释器会由不同的操作，比如下面的代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">5</span></span><br><span class="line">b = <span class="number">5</span></span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br><span class="line">c = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">d = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="built_in">print</span>(c <span class="keyword">is</span> d)</span><br><span class="line"></span><br><span class="line">----运行结果----</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-<p>对a、b分别赋值为5，但是它们却是同一个对象的引用，这是因为，5是一个常量，对应的int类对象就是不可变的对象。Python解释器认为，这样的不可变对象，只需要在内存中存在一个就可以，因此，a和b指向同一个对象。而对于列表[1, 2, 3]，由于列表是可变对象，即使这两个对象的值相同，但它们不指向同一个对象。毕竟，谁也不知道后面的程序中会不会改变其中一个列表中的值。说到这里，或许能够解释Python的作者为什么要将Python的变量设计成只有引用式变量了，按照笔者粗浅的理解，这样做的优势在于<strong>可以节约内存</strong>。毕竟，Python为了能够”简洁、优雅“，为了能够用一行代码解决C语言用20行代码才能解决的问题，在性能上牺牲了不少。</p>
-<h3 id="5、函数传参机制"><a href="#5、函数传参机制" class="headerlink" title="5、函数传参机制"></a>5、函数传参机制</h3><p>在Python中，<strong>函数传参同样传递的是对象的引用</strong>，函数参数是不可变对象时，这没有什么讨论的价值。但是，倘若传递的参数是可变对象，如果你不注意这一点，Bug可能就会默默地在凝视你，譬如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test1</span>(<span class="params">a</span>):</span></span><br><span class="line">    a[-<span class="number">1</span>] = <span class="string">&#x27;end&#x27;</span></span><br><span class="line"></span><br><span class="line">a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">test1(a)</span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line">----运行结果----</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="string">&#x27;end&#x27;</span>]</span><br></pre></td></tr></table></figure>
-
-<p>可以看到，在运行完函数test1后，a的值改变了，如果你不想让他改变，这是Bug就来啦。</p>
-<p>同样，还有需要注意的一点是，<strong>不要把参数的默认值设置成一个可变对象</strong>，否则Bug大概已经在和你招手了：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用可变对象做参数默认值带来的bug</span></span><br><span class="line"><span class="comment"># 例程来源于《流畅的Python》</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HauntedBus</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, passengers=[]</span>):</span></span><br><span class="line">        self.passengers = passengers</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pick</span>(<span class="params">self, name</span>):</span> <span class="comment"># 乘客上车</span></span><br><span class="line">        self.passengers.append(name)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">drop</span>(<span class="params">self, name</span>):</span> <span class="comment"># 乘客下车</span></span><br><span class="line">        self.passengers.remove(name)</span><br><span class="line"></span><br><span class="line">bus1 = HauntedBus([<span class="string">&#x27;zhang_san&#x27;</span>, <span class="string">&#x27;li_si&#x27;</span>])</span><br><span class="line">bus1.pick(<span class="string">&#x27;wang_mazi&#x27;</span>)</span><br><span class="line">bus1.drop(<span class="string">&#x27;zhang_san&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(bus1.passengers)</span><br><span class="line"></span><br><span class="line">bus2 = HauntedBus()</span><br><span class="line">bus2.pick(<span class="string">&#x27;zhao_wu&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(bus2.passengers)</span><br><span class="line"></span><br><span class="line">bus3 = HauntedBus()</span><br><span class="line"><span class="built_in">print</span>(bus3.passengers)</span><br><span class="line"><span class="built_in">print</span>(bus2.passengers <span class="keyword">is</span> bus3.passengers)</span><br><span class="line"><span class="built_in">print</span>(bus3.passengers <span class="keyword">is</span> bus1.passengers)</span><br><span class="line"></span><br><span class="line">----运行结果----</span><br><span class="line">[<span class="string">&#x27;li_si&#x27;</span>, <span class="string">&#x27;wang_mazi&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;zhao_wu&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;zhao_wu&#x27;</span>]</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-<p>你会惊奇地发现，bus3.passengers难道不应该是空列表吗？这是因为，HauntedBus的构造函数中passengers的默认值是一个可变对象，在对bus2进行操作的时候，由于引用式变量的特性，改变了默认值指向的可变对象。于是乎，就出现了意向不到的Bug。</p>
-<h3 id="6、扩展阅读"><a href="#6、扩展阅读" class="headerlink" title="6、扩展阅读"></a>6、扩展阅读</h3><p>讲到这里，其实本文的主要内容就基本讲完了。本节的内容，除非说你需要开发自己的Python库，否则了解与否都基本不会影响你使用Python，你完全可以跳过本节，完结撒花。</p>
-<p><strong>垃圾回收</strong>：在其他编程语言中都会讨论变量或对象的生存周期，会有垃圾回收机制，但在Python中好像很少谈及这个问题。实际上，Python也存在垃圾回收机制，Python中每个变量都是对象的引用，如果某个对象不再被引用，这个对象就会被销毁，这就是Python中的垃圾回收机制。del语句可以删除变量，解除变量对对象的引用，如果这是对象的最后一个引用，这个对象就会被销毁。</p>
-<p><strong>弱引用</strong>：弱引用不增加对象的引用数，若对象存在，通过弱引用可以获取对象。若对象已被销毁，则弱引用返回None，这常用于缓存中。</p>
-<p>最后，本文的目的在于帮助那些像我一样从C语言转移到Python的人，或者是被Python的变量、拷贝整得晕头转向的人。为了让小白也有可能能看懂本文，我尽量写得通俗易懂。但是限于本人水平，难免会有谬误或疏漏之处，如有发现，烦请再评论区指正，over。</p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><blockquote>
-<p>Python语言参考手册：<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/reference/datamodel.html">https://docs.python.org/zh-cn/3/reference/datamodel.html</a></p>
-</blockquote>
-<blockquote>
-<p>Luciano Ramalho：《流畅的Python》第八章，人民邮电出版社。</p>
-</blockquote>
-<blockquote>
-<p>Python 直接赋值、浅拷贝和深度拷贝解析：<a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/python-understanding-dict-copy-shallow-or-deep.html">https://www.runoob.com/w3cnote/python-understanding-dict-copy-shallow-or-deep.html</a></p>
-</blockquote>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/10/%E4%BB%8E%E5%86%85%E5%AD%98%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BPython%E4%B8%AD%E7%9A%84%E5%8F%98%E9%87%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -321,10 +275,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-01-05 17:10:21 / 修改时间：17:11:15" itemprop="dateCreated datePublished" datetime="2022-01-05T17:10:21+08:00">2022-01-05</time>
+              <time title="创建时间：2022-01-05 17:10:21" itemprop="dateCreated datePublished" datetime="2022-01-05T17:10:21+08:00">2022-01-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-10 22:43:26" itemprop="dateModified" datetime="2022-01-10T22:43:26+08:00">2022-01-10</time>
+              </span>
 
           
 
@@ -338,10 +298,14 @@
 
       
           <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如你所见，这是我的个人博客，我抓住2021年的尾巴，在2021年12月29日这天搭建了这个博客。搭建个人博客并坚持更新是我很久之前就想做的事，打开那个空荡荡的文件里，里面唯一的Markdown文档显示我这个想法最初产生于2021年1月16。然而我也确实是懒，上半年忙着毕业，忙着告别，下半年换了个身份，在西安这个干燥的城市忙着摸鱼。直到年末，疫情肆虐，从17号封校到29号宿舍制动，期末考试延期，我才开始动手实现这个很久之前的想法。这个执行力，不能说很差，只能说基本没有。那么，为什么我会想要搭建个人博客呢，主要原因如下：</p>
-<h3 id="1、帮助他人"><a href="#1、帮助他人" class="headerlink" title="1、帮助他人"></a>1、帮助他人</h3><p>从大一学习C语言开始，我就被无数的博主帮助过，每次遇到了问题，都会百度搜索解决方案，看别人写的技术博客，来解决自己的问题，或是阅读博客学习新的知识。那时我就想，等我有一天变成大佬了，我也要像他们一样，写博客帮助别人。然而，三四年过去了，我始终没有成为那个大佬，因为每次爬上一座山，面前永远都有更高的山在等着我，我永远都会觉得自己好菜。但是，这不代表我不能写技术博客，我不能一直在准备却没有任何行动。up主老石谈芯在某期视频中分享他读过的一本书《Show your work》中表达的一样，你不必是个天才，才有资格分享知识。是的，博客不应该是一个炫技或显示自己博学的平台，只要能帮助到别人，再初级的博客也是好博客。举个很简单的例子，当我不太会C语言的时候，我觉得会C语言的人好强，是个大佬。当我会C语言以后，我觉得C语言不过如此，那些会单片机的人好强，是个大佬。但是当我会单片机以后，我也会觉得单片机不过如此，那些会xxx的人太强了，是个大佬。每当我登上一座高峰，我脚下的山头就成了我的平地，我眼中将会有新的高峰。学习是永无止境的，我也永远不会成为自己眼中的大佬。但是如果我回头看，那些正在攀爬我曾经征服过的山头的人，我是否是他们眼中的大佬呢？我踩过的坑，如果记录下来，又是否能帮助到他们呢？</p>
-<h3 id="2、记录自己的学习与成长"><a href="#2、记录自己的学习与成长" class="headerlink" title="2、记录自己的学习与成长"></a>2、记录自己的学习与成长</h3><p>当我回顾自己本科四年的学习之路，我发现了一个很大的问题，就是我的学习是不成体系的，没有搭建好一个属于自己的框架。单片机、linux、Qt、Python图像处理、pcb绘制甚至于java，我雨露均沾。这种雨露均沾让我能混迹各种比赛，但人的精力是有限的，这种雨露均沾势必决定了我都无法深入学习，我变得浮躁，不再像大一时那样愿意深入钻研，这种浮躁也决定了我实现不了任何高质量的工作。因此，我想要写博客还有一个很重要的原因就是想要记录自己学习和成长的过程，我希望通过博客来搭建我的知识体系与框架，同时也想借助博客，督促自己做深入的钻研。同时，我也发现自己表达能力越来越苍白，时常是打开电脑坐半天憋不出几个字，我希望能通过坚持写博客，来强化自己的表达能力。如此说来，好像这一切我都能通过现有的博客平台实现，诸如CSDN、博客园等，实际上在过去的一年里我也在CSDN上憋了三篇文章。在这样的平台，不需要自己操心维护，还更容易收获流量，那为什么还要自己费心搭建个人博客呢？关于这点，我只是单纯觉得如果自己能长期坚持维护一个项目很酷，并且自己搭建的博客自由而不受约束，也不用担心平台gg。</p>
-<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>博客仓促搭好了，最重要的就是坚持更新了，维护和美化的工作可以慢慢做。希望接下来的一年自己能坚持更新吧，如果能基本做到技术博客两周一更，坚持一年，就可以考虑买域名租服务器了。当然，更新的内容也不仅限于技术博客，毕竟生活除了工作学习还有诗和远方，读书、观影感想，摄影分享，也未尝不可。最后，就祝自己加油，努力向前吧。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/05/HelloBlog/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
