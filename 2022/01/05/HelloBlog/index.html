@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"liu-huilin.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言如你所见，这是我的个人博客，我抓住2021年的尾巴，在2021年12月29日这天搭建了这个博客。搭建个人博客并坚持更新是我很久之前就想做的事，打开那个空荡荡的文件里，里面唯一的Markdown文档显示我这个想法最初产生于2021年1月16。然而我也确实是懒，上半年忙着毕业，忙着告别，下半年换了个身份，在西安这个干燥的城市忙着摸鱼。直到年末，疫情肆虐，从17号封校到29号宿舍制动，期末考试延期，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hello Blog">
+<meta property="og:url" content="https://liu-huilin.github.io/2022/01/05/HelloBlog/index.html">
+<meta property="og:site_name" content="菜鸡刘的个人小站">
+<meta property="og:description" content="前言如你所见，这是我的个人博客，我抓住2021年的尾巴，在2021年12月29日这天搭建了这个博客。搭建个人博客并坚持更新是我很久之前就想做的事，打开那个空荡荡的文件里，里面唯一的Markdown文档显示我这个想法最初产生于2021年1月16。然而我也确实是懒，上半年忙着毕业，忙着告别，下半年换了个身份，在西安这个干燥的城市忙着摸鱼。直到年末，疫情肆虐，从17号封校到29号宿舍制动，期末考试延期，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-05T09:10:21.000Z">
+<meta property="article:modified_time" content="2022-01-05T09:11:15.564Z">
+<meta property="article:author" content="菜鸡刘">
+<meta property="article:tag" content="个人博客 进化算法 机器学习">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://liu-huilin.github.io/2022/01/05/HelloBlog/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Hello Blog | 菜鸡刘的个人小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜鸡刘的个人小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">做个有趣的俗人。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/liu-huilin" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://liu-huilin.github.io/2022/01/05/HelloBlog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="菜鸡刘">
+      <meta itemprop="description" content="进化算法，机器学习，不定期分享，会努力更新的。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜鸡刘的个人小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hello Blog
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-05 17:10:21 / 修改时间：17:11:15" itemprop="dateCreated datePublished" datetime="2022-01-05T17:10:21+08:00">2022-01-05</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如你所见，这是我的个人博客，我抓住2021年的尾巴，在2021年12月29日这天搭建了这个博客。搭建个人博客并坚持更新是我很久之前就想做的事，打开那个空荡荡的文件里，里面唯一的Markdown文档显示我这个想法最初产生于2021年1月16。然而我也确实是懒，上半年忙着毕业，忙着告别，下半年换了个身份，在西安这个干燥的城市忙着摸鱼。直到年末，疫情肆虐，从17号封校到29号宿舍制动，期末考试延期，我才开始动手实现这个很久之前的想法。这个执行力，不能说很差，只能说基本没有。那么，为什么我会想要搭建个人博客呢，主要原因如下：</p>
+<h3 id="1、帮助他人"><a href="#1、帮助他人" class="headerlink" title="1、帮助他人"></a>1、帮助他人</h3><p>从大一学习C语言开始，我就被无数的博主帮助过，每次遇到了问题，都会百度搜索解决方案，看别人写的技术博客，来解决自己的问题，或是阅读博客学习新的知识。那时我就想，等我有一天变成大佬了，我也要像他们一样，写博客帮助别人。然而，三四年过去了，我始终没有成为那个大佬，因为每次爬上一座山，面前永远都有更高的山在等着我，我永远都会觉得自己好菜。但是，这不代表我不能写技术博客，我不能一直在准备却没有任何行动。up主老石谈芯在某期视频中分享他读过的一本书《Show your work》中表达的一样，你不必是个天才，才有资格分享知识。是的，博客不应该是一个炫技或显示自己博学的平台，只要能帮助到别人，再初级的博客也是好博客。举个很简单的例子，当我不太会C语言的时候，我觉得会C语言的人好强，是个大佬。当我会C语言以后，我觉得C语言不过如此，那些会单片机的人好强，是个大佬。但是当我会单片机以后，我也会觉得单片机不过如此，那些会xxx的人太强了，是个大佬。每当我登上一座高峰，我脚下的山头就成了我的平地，我眼中将会有新的高峰。学习是永无止境的，我也永远不会成为自己眼中的大佬。但是如果我回头看，那些正在攀爬我曾经征服过的山头的人，我是否是他们眼中的大佬呢？我踩过的坑，如果记录下来，又是否能帮助到他们呢？</p>
+<h3 id="2、记录自己的学习与成长"><a href="#2、记录自己的学习与成长" class="headerlink" title="2、记录自己的学习与成长"></a>2、记录自己的学习与成长</h3><p>当我回顾自己本科四年的学习之路，我发现了一个很大的问题，就是我的学习是不成体系的，没有搭建好一个属于自己的框架。单片机、linux、Qt、Python图像处理、pcb绘制甚至于java，我雨露均沾。这种雨露均沾让我能混迹各种比赛，但人的精力是有限的，这种雨露均沾势必决定了我都无法深入学习，我变得浮躁，不再像大一时那样愿意深入钻研，这种浮躁也决定了我实现不了任何高质量的工作。因此，我想要写博客还有一个很重要的原因就是想要记录自己学习和成长的过程，我希望通过博客来搭建我的知识体系与框架，同时也想借助博客，督促自己做深入的钻研。同时，我也发现自己表达能力越来越苍白，时常是打开电脑坐半天憋不出几个字，我希望能通过坚持写博客，来强化自己的表达能力。如此说来，好像这一切我都能通过现有的博客平台实现，诸如CSDN、博客园等，实际上在过去的一年里我也在CSDN上憋了三篇文章。在这样的平台，不需要自己操心维护，还更容易收获流量，那为什么还要自己费心搭建个人博客呢？关于这点，我只是单纯觉得如果自己能长期坚持维护一个项目很酷，并且自己搭建的博客自由而不受约束，也不用担心平台gg。</p>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>博客仓促搭好了，最重要的就是坚持更新了，维护和美化的工作可以慢慢做。希望接下来的一年自己能坚持更新吧，如果能基本做到技术博客两周一更，坚持一年，就可以考虑买域名租服务器了。当然，更新的内容也不仅限于技术博客，毕竟生活除了工作学习还有诗和远方，读书、观影感想，摄影分享，也未尝不可。最后，就祝自己加油，努力向前吧。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>菜鸡刘
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://liu-huilin.github.io/2022/01/05/HelloBlog/" title="Hello Blog">https://liu-huilin.github.io/2022/01/05/HelloBlog/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%B8%AE%E5%8A%A9%E4%BB%96%E4%BA%BA"><span class="nav-number">2.</span> <span class="nav-text">1、帮助他人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E8%AE%B0%E5%BD%95%E8%87%AA%E5%B7%B1%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%88%90%E9%95%BF"><span class="nav-number">3.</span> <span class="nav-text">2、记录自己的学习与成长</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">4.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜鸡刘"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">菜鸡刘</p>
+  <div class="site-description" itemprop="description">进化算法，机器学习，不定期分享，会努力更新的。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liu-huilin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liu-huilin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/liu-huilin@qq.com" title="E-Mail → liu-huilin@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; Wed Dec 29 2021 08:00:00 GMT+0800 (中国标准时间) – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">菜鸡刘</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
