@@ -2,6 +2,16 @@
 
 链接：liu-huilin.github.io
 
+hexo：https://hexo.io/
+
+hexo官方文档：https://hexo.io/zh-cn/docs/
+
+hexo主题模板：https://hexo.io/themes/
+
+next：https://github.com/theme-next/hexo-theme-next
+
+图标网站：http://www.fontawesome.com.cn/
+
 ### 维护记录
 
 > 2021-12-29
